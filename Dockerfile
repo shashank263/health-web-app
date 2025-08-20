@@ -2,7 +2,7 @@
 FROM tomcat:9.0-jdk11-temurin
 
 # Copy the .war file from the Maven build into the Tomcat webapps directory
-COPY target/health-tracker.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/health-tracker-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose the Tomcat port
 EXPOSE 8080
