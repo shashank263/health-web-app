@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-tracker-deployment
+  labels:
+    app: health-tracker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: health-tracker
+  template:
+    metadata:
+      labels:
+        app: health-tracker
+    spec:
+      containers:
+      - name: health-tracker
+        image: shashank263/health-tracker:latest
+        ports:
+        - containerPort: 8080
