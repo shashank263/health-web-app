@@ -17,5 +17,6 @@ spec:
       containers:
       - name: health-tracker
         image: shashank263/health-tracker:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
