@@ -1,11 +1,12 @@
-# Use a Tomcat 9 base image with JDK 11
+# ---------- Stage 1: Build the project ----------
+FROM maven:3.8.7-openjdk-11 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# ---------- Stage 2: Deploy WAR on Tomcat ----------
 FROM tomcat:9.0-jdk11-temurin
-
-# Copy the .war file from the Maven build into the Tomcat webapps directory
-COPY target/health-tracker-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
-
-# Expose the Tomcat port
+COPY --from=builder /app/target/health-tracker-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
-
-# Start Tomcat when the container runs
 CMD ["catalina.sh", "run"]
